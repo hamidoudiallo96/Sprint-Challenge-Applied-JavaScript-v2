@@ -26,31 +26,21 @@ const newPromise = axios.get('https://lambda-times-backend.herokuapp.com/article
 // Step2: Study the response data you get back, closely.
 newPromise
 .then(data =>{
-    console.log('data',data);
-    const cardDisplay = data.data.articles;
-    // console.log(cardDisplay);
-    const newCardDisplay = Object.keys(cardDisplay);
-    // console.log(newCardDisplay);
     
-    for(let i = 0; i<newCardDisplay.length; i++){
-        // console.log(newCardDisplay[i]);
-        for(let j = 0; i<newCardDisplay[i].length; j++){
-            console.log(newCardDisplay[i][j]);
-        }
+    const cardDisplay = data.data.articles;
+    for(let keys in cardDisplay){
+        console.log(cardDisplay[keys]);
+        cardDisplay[keys].forEach(element => {
+            document.querySelector('.cards-container').appendChild(Cards(element));
+
+        });
     }
+   
 })
 .catch(err =>{
     console.log('err',err);
 });
 
-
-// 
-//     for(let y = 0; y<newCardDisplay[i][j].length; y++){
-//         console.log(newCardDisplay[i][j][y]);
-
-//     document.querySelector('.cards-container').appendChild(Cards(newCardDisplay[i][j][y]));
-//     }
-// }
 // Step 3: Create cards component
 
 function Cards(obj){
